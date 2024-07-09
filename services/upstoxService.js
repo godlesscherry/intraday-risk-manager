@@ -28,15 +28,6 @@ async function getToken(authCode) {
     tokens.expiryTime = Date.now() + expires_in * 1000;
 }
 
-async function refreshToken() {
-    if (Date.now() >= tokens.expiryTime) {
-        // refresh the token here
-        console.error('token has expired');
-        tokens.accessToken = getToken(authCode);
-    }
-
-}
-
 
 
 async function getOrderBook(){
