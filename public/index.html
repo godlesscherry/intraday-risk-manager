@@ -42,6 +42,45 @@
             background-color: #2e2e2e;
             color: #e74c3c;
         }
+        footer {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+        footer h3 {
+            margin: 0 0 10px;
+            color: #e74c3c;
+        }
+        footer ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        footer ul li {
+            margin: 0 10px;
+        }
+        footer ul li a {
+            color: #f5f5f5;
+            text-decoration: none;
+        }
+        footer ul li a:hover {
+            color: #e74c3c;
+        }
+        footer p {
+            margin: 10px 0 0;
+            color: #f5f5f5;
+        }
+        footer p a {
+            color: #e74c3c;
+            text-decoration: none;
+        }
+        footer p a:hover {
+            color: #f5f5f5;
+        }
         a {
             display: block;
             margin: 20px 0;
@@ -63,6 +102,14 @@
         <h2>Risk Management Violations</h2>
         <div id="violation-container"></div>
     </div>
+    <footer>
+        <h3>Exposed Endpoints</h3>
+        <ul>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/order-book">Order Book</a></li>
+            <li><a href="/short-term-positions">Short-Term Positions</a></li>
+        </ul>
+    </footer>
     <script src="app.js"></script>
 </body>
 </html>
