@@ -6,7 +6,6 @@ const { processPositionViolations, getViolations } = require('../services/alertS
 router.get('/violations', async (req, res) => {
     try {
         const positions = await getShortTermPositions();
-        console.log(positions);
         processPositionViolations(positions.data); // Analyze positions for violations
         const violations = getViolations();
         res.json(violations);
