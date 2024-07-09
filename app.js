@@ -7,7 +7,7 @@ const { getShortTermPositions } = require('./services/upstoxService');
 const { processPositionViolations } = require('./services/alertService');
 const violationsRoutes = require('./routes/violations');
 const orderBookRoutes = require('./routes/orderBook'); 
-const { redirectUri } = require('./upstoxAPIConfig');
+
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -19,7 +19,7 @@ app.use(orderBookRoutes);
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log(`Server running on port ${PORT}`);
     // Create a custom decorative banner for the console
     console.log('-------------------------------------------------------');
@@ -41,6 +41,11 @@ app.listen(PORT, () => {
     console.log('Open http://localhost:3000/ to view violations');
     // Redirect to short term positions page
     console.log('Open http://localhost:3000/short-term-positions to view short term positions');
+    
+    // Dynamically import the open module
+    const open = (await import('open')).default;
+    // Automatically open the login page in the default browser
+    await open(`http://localhost:${PORT}/login`);
     
 });
 

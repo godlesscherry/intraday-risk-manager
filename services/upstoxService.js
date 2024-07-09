@@ -34,8 +34,6 @@ async function refreshToken() {
         console.error('token has expired');
         tokens.accessToken = getToken(authCode);
     }
-    // Token is still valid
-    return;
 
 }
 
