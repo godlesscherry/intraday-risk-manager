@@ -17,7 +17,7 @@ router.get('/callback', async (req, res) => {
 
     try {
         await getToken(authCode);
-        res.send('Authentication successful');
+        res.redirect('/'); // Redirect to the home page
     } catch (error) {
         res.status(500).send('Error exchanging code for token');
     }
