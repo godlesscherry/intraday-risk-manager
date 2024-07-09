@@ -47,8 +47,7 @@ Intraday Risk Manager (IRMA) is a Node.js application designed to help intraday 
 ## Endpoints to explore
 - Login: http://localhost:3000/login
 - Order Book: http://localhost:3000/order-book
-- Risk Management Violations: http://localhost:3000/
-- Positions: http://localhost:3000/positions
+- { HOME } Risk Management Violations: http://localhost:3000/
 - Short-Term Positions: http://localhost:3000/short-term-positions
 
 ## Usage
@@ -61,8 +60,24 @@ Visit the order book page to view the list of orders placed for the current day,
 ### Monitoring Risk Management Violations
 The main page provides a summary of risk management violations based on your trading rules. Ensure you review these violations to stay compliant with your trading strategy.
 
-### Viewing Positions
-Check your current and short-term trading positions to monitor your open trades and plan your next moves accordingly.
+### Configuring Risk Management Rules
+You can customize the risk management rules by updating the `upstoxAPIConfig.js` file. This file contains the predefined variables that are enforced by the application.
+
+```javascript
+module.exports = {
+  // Maximum loss allowed per trade
+  maxLossPerTrade: 1000,
+
+  // Maximum loss allowed per day
+  maxLossPerDay: 2000,
+
+  // Maximum trades per scrip
+   maxTradesPerScrip: 2,
+
+  // Maximum number of trades allowed per day
+  maxTradesPerDay: 5,
+};
+```
 
 ## Contributing
 Contributions are welcome! Please feel free to raise issues, fork the repository, and submit pull requests to help improve the application.
