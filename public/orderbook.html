@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+        #order-book {
+            padding: 20px;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #1e1e1e;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .order {
+            border: 1px solid #e74c3c;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #2e2e2e;
+            color: #e74c3c;
+        }
+        .order-header {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        a {
+            display: block;
+            margin: 20px 0;
+            text-align: center;
+            color: #f5f5f5;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div id="order-book">
+        <h2>Order Book</h2>
+        <div id="order-container"></div>
+    </div>
+    <a href="index.html">Back to Violations</a>
+    <script src="orderBook.js"></script>
+</body>
+</html>
