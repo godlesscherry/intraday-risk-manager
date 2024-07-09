@@ -8,9 +8,13 @@ Intraday Risk Manager (IRMA) is a Node.js application designed to help intraday 
 
 - **Token Management**: Handles OAuth2 authentication with the Upstox API.
 - **Risk Management**: Enforces predefined trading rules and violations.
-- **Order Book**: Retrieves and displays the list of orders placed for the current day.
-- **Positions**: Retrieves and displays current and short-term trading positions.
+- **Order Book**: Retrieves the list of orders placed for the current day.
+- **Positions**: Retrieves current and short-term trading positions.
 - **Alerts and Violations**: Generates alerts and displays risk management violations.
+- **Customizable Rules**: Allows users to customize risk management rules.
+- **Web Interface**: Provides a user-friendly web interface to interact with the application.
+- **REST API**: Exposes REST endpoints to fetch trading data and risk management violations.
+- **Periodic Updates**: Fetches data at regular intervals to keep the application up-to-date.
 
 ## Setup Instructions
 
@@ -53,9 +57,6 @@ Intraday Risk Manager (IRMA) is a Node.js application designed to help intraday 
 ## Usage
 ### Login
 To start using the application, navigate to the login page and authenticate using your Upstox credentials. This will generate an access token that is used for subsequent API requests.
-
-### Viewing Order Book
-Visit the order book page to view the list of orders placed for the current day, including details such as price, quantity, status, and transaction type.
 
 ### Monitoring Risk Management Violations
 The main page provides a summary of risk management violations based on your trading rules. Ensure you review these violations to stay compliant with your trading strategy.
