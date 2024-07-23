@@ -28,19 +28,34 @@
             font-size: 1em;
             color: #f5f5f5;
         }
-        #violations {
+        #container {
+            display: flex;
+            justify-content: center;
             padding: 20px;
-            max-width: 600px;
+            max-width: 1200px;
             margin: 50px auto;
+        }
+        .column {
+            flex: 1;
+            margin: 0 10px;
             background-color: #1e1e1e;
+            padding: 20px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        .violation {
-            border: 1px solid #e74c3c;
+        .violation, .rule-followed, .summary-item {
+            border: 1px solid #f5f5f5;
             padding: 10px;
             margin-bottom: 10px;
             background-color: #2e2e2e;
             color: #e74c3c;
+        }
+        .rule-followed {
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+        .summary-item {
+            border-color: #f5f5f5;
+            color: #3498db;
         }
         footer {
             background-color: #1e1e1e;
@@ -98,9 +113,21 @@
         <h1>IRMA</h1>
         <p>Intraday Risk Manager for Upstox</p>
     </header>
-    <div id="violations">
-        <h2>Risk Management Violations</h2>
-        <div id="violation-container"></div>
+    <div id="container">
+        <div class="column" id="violations">
+            <h2>Violations</h2>
+            <div id="violation-container"></div>
+        </div>
+        <div class="column" id="rules-followed">
+            <h2>Rules Followed</h2>
+            <div id="rules-followed-container"></div>
+        </div>
+        <div class="column" id="summary">
+            <h2>Summary</h2>
+            <div id="charges-container" class="summary-item"></div>
+            <div id="total-trades-container" class="summary-item"></div>
+            <div id="total-traded-value-container" class="summary-item"></div>
+        </div>
     </div>
     <footer>
         <h3>Exposed Endpoints</h3>
@@ -109,6 +136,9 @@
             <li><a href="/order-book">Order Book</a></li>
             <li><a href="/short-term-positions">Short-Term Positions</a></li>
         </ul>
+        <h4> Created by : Hari Charan, Cherukumilli</h4>
+        <p><a href="mailto:haricharan.nitt@gmail.com">haricharan.nitt@gmail.com</a></p>
+
     </footer>
     <script src="app.js"></script>
 </body>
