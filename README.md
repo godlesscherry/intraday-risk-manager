@@ -15,6 +15,8 @@ Intraday Risk Manager (IRMA) is a Node.js application designed to help intraday 
 - **Web Interface**: Provides a user-friendly web interface to interact with the application.
 - **REST API**: Exposes REST endpoints to fetch trading data and risk management violations.
 - **Periodic Updates**: Fetches data at regular intervals to keep the application up-to-date.
+- **Summary Dashboard**: Displays a summary including estimated charges and fees, total traded value, and total trades count.
+- **Rules Followed**: Displays the rules followed by the trader(un-violated rules).
 
 ## Setup Instructions
 
@@ -78,6 +80,20 @@ module.exports = {
   // Maximum number of trades allowed per day
   maxTradesPerDay: 5,
 };
+
+### Rules Followed
+The application now includes a section that highlights the trading rules that were not violated. This provides traders with positive feedback and encourages adherence to trading strategies.
+
+### Summary
+The summary section includes:
+
+Estimated Charges and Fees: Calculated as proportional to the total volume traded in the day. For example, 1000 INR for 20,00,000 traded value.
+Total Traded Value: The total value of all trades executed during the trading day.
+Total Trades Count: The total number of trades executed during the trading day.
+
+These enhancements provide a comprehensive view of trading activity and help traders better understand their performance and costs.
+
+
 ```
 
 ## Contributing
