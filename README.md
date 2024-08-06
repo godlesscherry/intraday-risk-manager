@@ -94,8 +94,6 @@ Total Trades Count: The total number of trades executed during the trading day.
 These enhancements provide a comprehensive view of trading activity and help traders better understand their performance and costs.
 
 
-```
-
 ## Contributing
 Contributions are welcome! Please feel free to raise issues, fork the repository, and submit pull requests to help improve the application.
 
