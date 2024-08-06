@@ -80,7 +80,7 @@ module.exports = {
   // Maximum number of trades allowed per day
   maxTradesPerDay: 5,
 };
-
+```
 ### Rules Followed
 The application now includes a section that highlights the trading rules that were not violated. This provides traders with positive feedback and encourages adherence to trading strategies.
 
