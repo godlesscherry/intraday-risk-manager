@@ -4,16 +4,14 @@ const config = require('../upstoxAPIConfig');
 const { getShortTermPositions, getOrderBook } = require('./upstoxService');
 
 const alertFilePath = path.join(__dirname, '../alerts.log');
-let violations = [];
+let violations = {};  // Track violations by symbol
 let estimatedCharges = 0;
 let totalTradesCount = 0;
 let totalTradedValue = 0;
 
-// Helper function to avoid duplicate violations
-function addViolation(message) {
-    if (!violations.includes(message)) {
-        violations.push(message);
-    }
+// Helper function to add or update violations for a specific scrip
+function addOrUpdateViolation(scrip, message) {
+    violations[scrip] = message;  // If a violation already exists, update the message
 }
 
 // Process violations based on positions data
@@ -23,17 +21,17 @@ async function processPositionViolations() {
     // Max loss per position is 5000
     positions.data.forEach(position => {
         if (position.realised < config.maxTradeLoss) {
-            addViolation(`Max loss per trade for ${position.trading_symbol} exceeds threshold: ${position.realised}`);
+            addOrUpdateViolation(position.trading_symbol, `Max loss per trade for ${position.trading_symbol} exceeds threshold: ${position.realised}`);
         }
         if (position.unrealised < config.maxTradeLoss) {
-            addViolation(`Unrealized loss for ${position.trading_symbol} exceeds threshold: ${position.unrealised}`);
+            addOrUpdateViolation(position.trading_symbol, `Unrealized loss for ${position.trading_symbol} exceeds threshold: ${position.unrealised}`);
         }
     });
 
     // Max loss per day is 15000
     const totalRealised = positions.data.reduce((total, position) => total + position.realised, 0);
     if (totalRealised < config.maxDayLoss) {
-        addViolation(`Total realized loss for the day exceeds threshold: ${totalRealised}`);
+        addOrUpdateViolation('Total', `Total realized loss for the day exceeds threshold: ${totalRealised}`);
     }
 
     // Calculate estimated charges and fees
@@ -42,12 +40,13 @@ async function processPositionViolations() {
 
     // Enforce Charges limit of 2500 per day
     if (estimatedCharges > 2500) {
-        addViolation(`Estimated charges for the day exceeds threshold: ${estimatedCharges}`);
+        addOrUpdateViolation('Charges', `Estimated charges for the day exceeds threshold: ${estimatedCharges}`);
     }
 
     // Optionally, log violations
-    if (violations.length > 0) {
-        fs.appendFile(alertFilePath, `${new Date().toISOString()}: ${violations.join(', ')}\n`, error => {
+    if (Object.keys(violations).length > 0) {
+        const violationsArray = Object.values(violations);
+        fs.appendFile(alertFilePath, `${new Date().toISOString()}: ${violationsArray.join(', ')}\n`, error => {
             if (error) {
                 console.error('Failed to log violations:', error);
             }
@@ -58,6 +57,8 @@ async function processPositionViolations() {
 // Enforce a 25-trade limit and max trades per scrip by analyzing the order book
 async function analyzeOrderbookViolations() {
     try {
+        totalTradesCount = 0;  // Reset for each session
+
         const response = await getOrderBook(); // Fetch the order book data
         const orderBook = response.data; // Assuming the order book data is in response.data
 
@@ -106,23 +107,24 @@ async function analyzeOrderbookViolations() {
 
                 // Enforce max trades per scrip
                 if (tradesPerScrip[symbol] > config.maxTradesPerScrip) {
-                    addViolation(`Max trades per scrip exceeded for ${symbol}: ${tradesPerScrip[symbol]} trades (max allowed: ${config.maxTradesPerScrip})`);
+                    addOrUpdateViolation(symbol, `Max trades per scrip exceeded for ${symbol}: ${tradesPerScrip[symbol]} trades (max allowed: ${config.maxTradesPerScrip})`);
                 }
             }
         });
 
-        totalTradesCount += completedTrades; // Update the total trade count
+        totalTradesCount = completedTrades; // Update the total trade count with the current number of trades
 
         // Enforce max trades per day
         if (totalTradesCount >= 25) {
-            addViolation(`Max trades per day limit reached: ${totalTradesCount} trades (max allowed: 25)`);
+            addOrUpdateViolation('Total', `Max trades per day limit reached: ${totalTradesCount} trades (max allowed: 25)`);
         } else {
             console.log(`Trades left before reaching the limit: ${25 - totalTradesCount}`);
         }
 
         // Optionally, log violations
-        if (violations.length > 0) {
-            fs.appendFile(alertFilePath, `${new Date().toISOString()}: ${violations.join(', ')}\n`, error => {
+        if (Object.keys(violations).length > 0) {
+            const violationsArray = Object.values(violations);
+            fs.appendFile(alertFilePath, `${new Date().toISOString()}: ${violationsArray.join(', ')}\n`, error => {
                 if (error) {
                     console.error('Failed to log violations:', error);
                 }
@@ -137,7 +139,7 @@ async function analyzeOrderbookViolations() {
 module.exports = {
     processPositionViolations,
     analyzeOrderbook: analyzeOrderbookViolations,
-    getViolations: () => violations,
+    getViolations: () => Object.values(violations),
     getEstimatedCharges: () => estimatedCharges,
     getTotalTradesCount: () => totalTradesCount,
     getTotalTradedValue: () => totalTradedValue

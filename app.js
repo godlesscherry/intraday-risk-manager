@@ -32,8 +32,6 @@ app.listen(PORT, async () => {
     console.log('-------------------------------------------------------');
     console.log('-------------------------------------------------------');
     // Redirect to login page
-    await processPositionViolations(); // process violations in positions  
-    await analyzeOrderbook(); // Analyze orderbook for trading metrics
     console.log('Open http://localhost:3000/login to login');
     // Redirect to order book page
     console.log('Open http://localhost:3000/order-book to view order book');
