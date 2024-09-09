@@ -54,7 +54,6 @@ router.get('/total-trade-count', async (req, res) => {
 router.get('/total-trade-value', async (req, res) => {
     try {
         const totalTradedValue = getTotalTradedValue();
-        console.log('Total traded value:' , totalTradedValue);
         res.json(totalTradedValue);
     } catch (error) {
         console.error('Failed to fetch totalTradedValue:', error);
