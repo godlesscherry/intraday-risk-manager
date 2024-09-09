@@ -6,5 +6,5 @@ module.exports = {
     maxTradeLoss: -5000,
     riskRewardRatio: 2,
     maxTradesPerScrip: 3,
-    maxTradesPerDay: 10,
+    maxTradesPerDay: 25,
 };

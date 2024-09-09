@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const config = require('../upstoxAPIConfig');
-const { getShortTermPositions } = require('./upstoxService');
+const { getShortTermPositions, getOrderBook } = require('./upstoxService');
 
 const alertFilePath = path.join(__dirname, '../alerts.log');
 let violations = [];
@@ -67,8 +67,15 @@ async function processPositionViolations() {
     });
 }
 
+async function analyzeOrderbook(){
+    
+    const orderBook = await getOrderBook();
+
+}
+
 module.exports = {
     processPositionViolations,
+    analyzeOrderbook,
     getViolations: () => violations,
     getEstimatedCharges: () => estimatedCharges,
     getTotalTradesCount: () => totalTradesCount,

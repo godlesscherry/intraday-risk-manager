@@ -3,9 +3,8 @@ const app = express();
 const authRoutes = require('./routes/auth');
 const tradeRoutes = require('./routes/trades');
 const positionRoutes = require('./routes/positions');
-const { getShortTermPositions } = require('./services/upstoxService');
-const { processPositionViolations } = require('./services/alertService');
-const violationsRoutes = require('./routes/violations');
+const { getShortTermPositions, getOrderBook } = require('./services/upstoxService');
+const { processPositionViolations, analyzeOrderbook } = require('./services/alertService');
 const orderBookRoutes = require('./routes/orderBook'); 
 
 
@@ -14,7 +13,6 @@ app.use(express.static('public'));
 app.use(authRoutes);
 app.use(tradeRoutes);
 app.use(positionRoutes);
-app.use(violationsRoutes);
 app.use(orderBookRoutes); 
 
 const PORT = process.env.PORT || 3000;
@@ -52,8 +50,9 @@ app.listen(PORT, async () => {
 // Periodically fetch short-term positions and generate alerts
 setInterval(async () => {
     try {
-        const positions = await getShortTermPositions();
-        processPositionViolations(positions.data); // Analyze positions for violations
+        
+        await processPositionViolations(); // process violations in positions  
+        await analyzeOrderbook(); // Analyze orderbook for trading metrics
     } catch (error) {
         console.error('Failed to fetch and process positions:', error);
     }
