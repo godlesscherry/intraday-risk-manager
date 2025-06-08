@@ -109,37 +109,10 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>IRMA</h1>
-        <p>Intraday Risk Manager for Upstox</p>
-    </header>
-    <div id="container">
-        <div class="column" id="violations">
-            <h2>Violations</h2>
-            <div id="violation-container"></div>
-        </div>
-        <div class="column" id="rules-followed">
-            <h2>Rules Followed</h2>
-            <div id="rules-followed-container"></div>
-        </div>
-        <div class="column" id="summary">
-            <h2>Trading Summary</h2>
-            <div id="charges-container" class="summary-item"></div>
-            <div id="total-trades-container" class="summary-item"></div>
-            <div id="total-traded-value-container" class="summary-item"></div>
-        </div>
-    </div>
-    <footer>
-        <h3>Exposed Endpoints</h3>
-        <ul>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/order-book">Order Book</a></li>
-            <li><a href="/short-term-positions">Short-Term Positions</a></li>
-        </ul>
-        <h4> Created by : Hari Charan, Cherukumilli</h4>
-        <p><a href="mailto:haricharan.nitt@gmail.com">haricharan.nitt@gmail.com</a></p>
-
-    </footer>
-    <script src="app.js"></script>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <script src="app.js" type="text/babel"></script>
 </body>
 </html>
