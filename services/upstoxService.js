@@ -30,7 +30,7 @@ async function getToken(authCode) {
 
 
 
-async function getOrderBook(){
+async function getOrderBook() {
     try {
         const orderBookResponse = await axios.get('https://api.upstox.com/v2/order/retrieve-all', {
             headers: {
@@ -41,7 +41,8 @@ async function getOrderBook(){
         return orderBookResponse.data;
     } catch (error) {
         console.error('Failed to fetch order book:', error);
-        res.status(500).send('Failed to fetch order book');
+        // Rethrow the error so the caller can handle it
+        throw error;
     }
 }
 
@@ -61,4 +62,6 @@ module.exports = {
     getToken,
     getShortTermPositions,
     getOrderBook,
+    // Export tokens so middleware can access expiry information
+    tokens,
 };
